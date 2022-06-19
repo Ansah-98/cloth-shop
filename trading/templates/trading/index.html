@@ -1,0 +1,59 @@
+{%extends 'main.html'%}
+
+
+{%block content %}
+
+
+
+<style>
+    .home-container{
+        display: grid;
+        grid-template-columns: 1fr 2fr  1fr;
+    }
+</style>
+
+<div class="home-container">
+    <div>
+        <h2>
+        things you may like
+        </h2>
+        {%for products in product%}
+        <ul>
+            <li>
+                {{products.type_of}}
+            </li>
+        </ul>
+        {%endfor%}
+        <h2>Brands you want</h2>
+        {%for products in product%}
+        <ul>
+            <li>
+                {{products.brand}}
+            </li>
+        </ul>
+        {%endfor%}
+    </div>
+    <div>
+        {%for products in product %}
+
+            <div>
+                <p>
+                <img src="{{products.image.url}}" alt="" style="float:left"  width="160" height="150" hspace="40" >
+                 <h3>{{products.name}}</h3> <small> {{products.price}}GHC {{products.by.location}} </small>
+                 <h4>by @{{products.by.user.username}}</h4>
+                    <small> posted {{products.updated|timesince}}</small>              
+                 
+                
+                </p>
+                
+            </div>
+            {%endfor%}
+
+    </div>  
+    
+    <div>
+
+    </div>
+    
+</div>
+{%endblock%}

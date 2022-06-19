@@ -1,0 +1,29 @@
+
+<style>
+    .style-container{
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+    }
+</style>
+
+<div class="style-container">
+    <div>
+            <h1>LOGO</h1>
+       {%if request.user.is_authenticated%}
+    <h3>Start shopping {{request.user.username}}</h3>
+       {%endif%}
+    </div>
+
+    <div>
+        {%if obj%}
+        <p> 
+           <form action="" >
+                <input type="text" name="q" placeholder="search here .." id="">
+            </form>
+        </p>
+       {%endif%}
+    </div>
+    <div>
+        
+    </div>
+</div>

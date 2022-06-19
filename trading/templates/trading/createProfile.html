@@ -1,0 +1,23 @@
+{%extends 'main.html'%}
+
+
+{%block content%}
+<form action="" method="POST">
+    {%csrf_token%}
+    <p>
+        <label for="">Location</label>
+        <input type="text" name="location" id="">
+    </p>
+    <p>
+        <label for="">Phone Number</label>
+        <input type="text" name="number" id="">
+    </p>
+    <p>
+        <label for="">Bio</label>
+        <input type="text" name="bio" id="">
+    </p>  
+    <input type="submit" value="submit" id="">
+
+
+</form>
+{%endblock%}
