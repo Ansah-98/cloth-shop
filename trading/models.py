@@ -14,7 +14,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.IntegerField()
     brand = models.CharField(max_length=100)
-    type_of =models.CharField(max_length=100)
+    type_of = models.CharField(max_length=100)
     updated = models.DateTimeField(auto_now = True)
     posted = models.DateTimeField(auto_now_add = True)
     image = models.ImageField(default= 'cart.png' )

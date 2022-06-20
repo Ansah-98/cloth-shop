@@ -8,7 +8,7 @@
 <style>
     .home-container{
         display: grid;
-        grid-template-columns: 1fr 2fr  1fr;
+        grid-template-columns: 1fr 3fr 1fr ;
     }
 </style>
 
@@ -35,24 +35,20 @@
     </div>
     <div>
         {%for products in product %}
-
-            <div>
-                <p>
-                <img src="{{products.image.url}}" alt="" style="float:left"  width="160" height="150" hspace="40" >
-                 <h3>{{products.name}}</h3> <small> {{products.price}}GHC {{products.by.location}} </small>
-                 <h4>by @{{products.by.user.username}}</h4>
-                    <small> posted {{products.updated|timesince}}</small>              
-                 
-                
-                </p>
-                
-            </div>
-            {%endfor%}
+            
+                <img src="{{products.image.url}}" alt="" style="float:left"  width="160" height="160" hspace="30" >
+                <h3> <a href="">{{products.name}}</a></h3>
+                <small> {{products.price}}GHC {{products.by.location}} </small>
+                <h4><a href=""> by @{{products.by.user.username}}</a></h4>
+                <small> posted {{products.updated|timesince}}</small>  
+                <br>
+        {%endfor%}
 
     </div>  
-    
     <div>
-
+        <h1>
+            NEW DEALS & DISCOUNTS
+        </h1>
     </div>
     
 </div>

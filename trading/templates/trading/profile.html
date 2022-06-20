@@ -1,0 +1,72 @@
+{%extends 'main.html'%}
+
+{%block content%}
+
+<style>
+    .profile-container{
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+    
+    }
+</style>
+
+<div class="profile-container">
+    
+    <div style="padding-right:2cm">
+        <br>
+        <br>
+        <h2>Brands Posted</h2>
+        <hr>
+        <p>
+            {%for product in products %}
+            <h3><ul>
+                <li>
+                    {{product.brand}}
+                </li>
+            </ul> </h3>
+            {%endfor%}
+        </p>
+        <br>
+        <br>
+        <br>
+        <h2>
+            Types of Products sold
+        </h2>
+        <hr>
+        {%for product in products%}
+        <ul>
+            <li>
+                <h4>{{product.type_of}}</h4>
+            </li>
+        </ul>
+        {%endfor%}
+    </div>
+
+    <div style="padding-right: 5cm;">
+        <form action="">
+            <input type="text" name="q" id="" placeholder="search for items in this shop">
+        </form>
+        <br>
+        <h4> Username : @{{profile.user.username}}</h4>
+        <h4>Bio : {{profile.bio}}</h4>
+        <h4> location: {{profile.location}} </h4>
+        <h2>Items Posted</h2>
+        <hr>
+        {%if products == None%}
+        <h1>No products has been posted yet</h1>
+        {%else%}
+        {%for product in products%}
+        <img src="{{product.image.url}}" alt="" style="float:left;" hspace="20">
+        <h3> <a href="">{{product.name}}</a></h3>
+        <small>price {{product.price}}GH¢</small>
+        <br>
+        <br>
+        <small> posted {{product.updated|timesince}}</small>  
+        <br>
+        {%endfor%}
+        {%endif%}
+    </div>
+    
+</div>
+
+{%endblock content%}

@@ -6,7 +6,7 @@ from django.contrib import messages
 from .models import Profile,Product,Comment
 from .forms import ProductForm
 from django.db.models import Q
-
+from .no_repititions import Onlyone
 # Create your views here
 
 def home(request):
@@ -14,6 +14,7 @@ def home(request):
     q = request.GET.get('q')
     if q is None:
         product = Product.objects.all()
+        print(type(product))
     else:
         product = Product.objects.filter(Q(name__icontains =q)|
         Q(type_of__icontains=q)|
@@ -106,3 +107,10 @@ def postProduct(request):
         new_pro.save()
         return redirect('home')
     return render(request,'trading/new_product.html',{'form':form})
+
+def profile_page(request,pk):
+    profile = Profile.objects.get(pk=pk)
+    product = Product.objects.filter(by = profile)
+    print(product)
+    context = {'profile':profile,'products':product}
+    return render(request, 'trading/profile.html',context)

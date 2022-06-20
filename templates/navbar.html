@@ -24,6 +24,10 @@
        {%endif%}
     </div>
     <div>
-        
+        {%if request.user.is_authenticated%}
+        <h3>{{request.user.username}}</h3>
+        {%else%}
+        <a href="{%url 'register' %}"><h1>register</h1></a>
+        {%endif%}
     </div>
 </div>
