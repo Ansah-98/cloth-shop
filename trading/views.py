@@ -1,3 +1,6 @@
+from email import message
+from multiprocessing import context
+from tkinter import ON
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -14,13 +17,13 @@ def home(request):
     q = request.GET.get('q')
     if q is None:
         product = Product.objects.all()
-        print(type(product))
+        
     else:
         product = Product.objects.filter(Q(name__icontains =q)|
         Q(type_of__icontains=q)|
         Q(brand__icontains = q)|
-        Q(by__user__username__icontains =q))
-     
+        Q(by__user__username__icontains =q)) or None
+        
     context = { 'product' : product ,'obj':'obj',}
     return render(request,'trading/index.html',context)
 
@@ -101,9 +104,9 @@ def postProduct(request):
         type_of = request.POST['type_of']
         new_pro = Product.objects.create(by = profile , 
         name = name ,
-         brand = brand, 
-         price = price, 
-         type_of =type_of )
+        brand = brand, 
+        price = price, 
+        type_of =type_of )
         new_pro.save()
         return redirect('home')
     return render(request,'trading/new_product.html',{'form':form})
@@ -111,6 +114,27 @@ def postProduct(request):
 def profile_page(request,pk):
     profile = Profile.objects.get(pk=pk)
     product = Product.objects.filter(by = profile)
-    print(product)
-    context = {'profile':profile,'products':product}
+    type_of  = product.values('type_of')
+    brands = list(product.values('brand'))
+    brands = Onlyone(brands ,'brand').no_repeat()
+    types = Onlyone(type_of,'type_of').no_repeat()
+    context = {'profile':profile,'products':product , 'brands':brands,'types':types}
     return render(request, 'trading/profile.html',context)
+
+
+def checkProduct(request,pk):
+    product = Product.objects.get(id = pk)
+    comments = product.comment_set.all() or None
+    
+    context= {'product':product,'comments':comments}
+    if request.method == 'POST':
+        comment = request.POST['comment']        
+        user = Profile.objects.get(user = request.user)
+        new_comment= Comment.objects.create(product = product,sender=user,message=comment)
+        new_comment.save()
+        return redirect('product-page',pk=product.id)
+        # new_comment.save()
+    return render(request,'trading/product_page.html', context )
+
+def add_to_cart():
+    pass

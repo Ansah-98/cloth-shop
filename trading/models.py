@@ -9,6 +9,7 @@ class Profile(models.Model):
     number = models.CharField(max_length=14)
     bio = models.CharField(max_length=200)
 
+
 class Product(models.Model):
     by = models.ForeignKey(Profile, on_delete=models.CASCADE,)
     name = models.CharField(max_length=100)
@@ -18,12 +19,14 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now = True)
     posted = models.DateTimeField(auto_now_add = True)
     image = models.ImageField(default= 'cart.png' )
+    #deescription = 
+    #condition =
 
     def __str__(self):
         return self.name 
     
 class Comment(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    Profile = models.ForeignKey(Profile,on_delete=models.CASCADE)
+    sender = models.ForeignKey(Profile,on_delete=models.CASCADE)
     message = models.CharField(max_length=200)
     posted = models.DateTimeField(auto_now =True)

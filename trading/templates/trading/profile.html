@@ -18,10 +18,10 @@
         <h2>Brands Posted</h2>
         <hr>
         <p>
-            {%for product in products %}
+            {%for brand in brands %}
             <h3><ul>
                 <li>
-                    {{product.brand}}
+                    {{brand}}
                 </li>
             </ul> </h3>
             {%endfor%}
@@ -33,10 +33,10 @@
             Types of Products sold
         </h2>
         <hr>
-        {%for product in products%}
+        {%for type in types%}
         <ul>
             <li>
-                <h4>{{product.type_of}}</h4>
+                <h4>{{type}}</h4>
             </li>
         </ul>
         {%endfor%}
@@ -55,13 +55,15 @@
         {%if products == None%}
         <h1>No products has been posted yet</h1>
         {%else%}
-        {%for product in products%}
-        <img src="{{product.image.url}}" alt="" style="float:left;" hspace="20">
+        {%for product in products%}  
+        <p>
+        <img src="{{product.image.url}}" alt="" style="float:left;" hspace="20" height="130cm"  >
         <h3> <a href="">{{product.name}}</a></h3>
         <small>price {{product.price}}GH¢</small>
         <br>
         <br>
-        <small> posted {{product.updated|timesince}}</small>  
+        <small> posted {{product.updated|timesince}}</small>
+        </p>
         <br>
         {%endfor%}
         {%endif%}

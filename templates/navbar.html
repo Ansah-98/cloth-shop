@@ -25,9 +25,9 @@
     </div>
     <div>
         {%if request.user.is_authenticated%}
-        <h3>{{request.user.username}}</h3>
+        <a style="color: rgb(84, 56, 56) ;" href="{%url 'profile-page' request.user.id %}"><h3 style="text-align: right;">{{request.user.username}}</h3></a>
         {%else%}
-        <a href="{%url 'register' %}"><h1>register</h1></a>
+        <a href="{%url 'register' %}" style="text-align: center;"><h1>register</h1></a>
         {%endif%}
     </div>
 </div>

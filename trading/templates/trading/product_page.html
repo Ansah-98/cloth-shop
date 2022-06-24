@@ -1,0 +1,73 @@
+{%extends 'main.html'%}
+{%block content%}
+
+<style>
+    .product-page{
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+    }
+</style>
+
+<div class="product-page">
+
+    <div>
+        <h1>
+            Other products by seller
+        </h1>
+    </div>
+    <div>
+        <div style="text-align: center;">
+            
+            <a href="{{product.image.url}}"><img src= "{{product.image.url}}" alt="" > </a>
+            <span>
+            <h3>Name : {{product.name }} <span>Price : {{product.price}}</span></h3>
+            <br>
+            <h3>Brand : {{product.brand}} <span>updated : {{product.updated|timesince}}</span></h3>
+            <br>
+            </span>
+            
+        </div>
+                <div>
+            <h3 style="text-align: center ;">
+                Comments on Product
+                <hr>
+            </h3>
+            <br>
+            <div style='text-align: center ;'>
+                {%if comments == None %}
+                <h4>
+                    No comment on product yet
+                </h4>
+                {%else%}
+                {%for comment in comments%}
+                <small>
+                    <span>@ <a href="">{{comment.sender.user.username}}</a></span> posted <span>
+                        {{comment.posted|timesince}} 
+                    </span>
+                </small>
+                <br>
+                <h4 style="color: rgba(188, 16, 165, 0.858);">{{comment.message}}</h4>
+                {%endfor%}
+                {%endif%}
+    
+            </div>
+            {%if request.user.is_authenticated%}
+            <div style="text-align: center;">
+                <form action="" method="POST">
+                    {%csrf_token%}
+                    <input type="text" name="comment" id="" placeholder="comment here">
+                </form>
+            </div>
+            {%endif%}
+        </div>
+    </div>
+
+    <div>
+
+
+    </div>
+
+</div>
+    
+
+{%endblock content%}

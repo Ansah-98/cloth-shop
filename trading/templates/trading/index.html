@@ -8,42 +8,58 @@
 <style>
     .home-container{
         display: grid;
-        grid-template-columns: 1fr 3fr 1fr ;
+        grid-template-columns: 1fr 3fr 1fr;
+    }
+</style>
+
+<style>
+    .prod-display{
+        display: grid;
+        grid-template-columns: 1fr 2fr;
     }
 </style>
 
 <div class="home-container">
     <div>
-        <h2>
+        <h4 style="color: rgba(207, 26, 186, 0.738); font-size:1.5em  ; text-transform:capitalize ;">
         things you may like
-        </h2>
+        </h4>
         {%for products in product%}
         <ul>
             <li>
-                {{products.type_of}}
+               <a style="color:black" href="{%url 'home'%}?q={{products.type_of}}">{{products.type_of}}</a>
             </li>
         </ul>
         {%endfor%}
-        <h2>Brands you want</h2>
+        <h2 style="color: rgba(207, 26, 186, 0.738);">Brands you want</h2>
         {%for products in product%}
         <ul>
             <li>
-                {{products.brand}}
+               <a href="{%url 'home'%}?q={{products.brand}}"> {{products.brand}}</a>
             </li>
         </ul>
         {%endfor%}
     </div>
     <div>
+        
         {%for products in product %}
-            
-                <img src="{{products.image.url}}" alt="" style="float:left"  width="160" height="160" hspace="30" >
-                <h3> <a href="">{{products.name}}</a></h3>
-                <small> {{products.price}}GHC {{products.by.location}} </small>
-                <h4><a href=""> by @{{products.by.user.username}}</a></h4>
-                <small> posted {{products.updated|timesince}}</small>  
-                <br>
-        {%endfor%}
+            <div class="prod-display" >
+                <div style="text-align: center;">
+                    <a href="{{products.image.url}}"><img src="{{products.image.url}}" alt=""  width="170   " height="170"   ></a>
 
+                </div>
+                <div style="text-align:left;" >
+                    <h3> <a  href="{% url 'product-page' products.id %}">{{products.name}}</a></h3>
+                    <small> {{products.price}}GHC {{products.by.location}} </small>
+                    <h4><a href="{% url 'profile-page' products.by.id %}"> by @{{products.by.user.username}}</a></h4>
+                    <small> posted {{products.updated|timesince}}</small>  
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>   
+        {%endfor%}
     </div>  
     <div>
         <h1>
