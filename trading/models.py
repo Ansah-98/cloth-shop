@@ -6,8 +6,12 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,)
     location = models.CharField(max_length=200,)
-    number = models.CharField(max_length=14)
     bio = models.CharField(max_length=200)
+    number = models.CharField(max_length= 14)
+    profile_img  = models.ImageField(default = 'user.png')
+
+    def __str__(self):
+        return self.user.username
 
 
 class Product(models.Model):
@@ -22,6 +26,7 @@ class Product(models.Model):
     #deescription = 
     #condition =
 
+
     def __str__(self):
         return self.name 
     
@@ -30,3 +35,13 @@ class Comment(models.Model):
     sender = models.ForeignKey(Profile,on_delete=models.CASCADE)
     message = models.CharField(max_length=200)
     posted = models.DateTimeField(auto_now =True)
+
+
+class ContactInfo(models.Model):
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=20)
+    address = models.CharField(max_length= 100)
+
+    def __str__(self):
+        return self.profile

@@ -9,9 +9,9 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import os 
 from pathlib import Path
-
+from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'trading'
+    'trading',
+    'paypal.standard.ipn',
+    'paystack',
+    'tutorial'
 ]
 
 MIDDLEWARE = [
@@ -127,3 +130,5 @@ MEDIA_ROOT =  BASE_DIR/'static/images'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+PAYSTACK_PUBLIC_KEY = config('paystack_public_key')
+PAYSTACK_SECRET_KEY = config('paystack_secret_keys')

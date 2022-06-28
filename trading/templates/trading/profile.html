@@ -5,7 +5,7 @@
 <style>
     .profile-container{
         display: grid;
-        grid-template-columns: 1fr 2fr;
+        grid-template-columns: 1fr 3fr 1fr;
     
     }
 </style>
@@ -42,14 +42,17 @@
         {%endfor%}
     </div>
 
-    <div style="padding-right: 5cm;">
+    <div style="padding-right: 5cm; text-align: center;">
         <form action="">
             <input type="text" name="q" id="" placeholder="search for items in this shop">
         </form>
         <br>
-        <h4> Username : @{{profile.user.username}}</h4>
-        <h4>Bio : {{profile.bio}}</h4>
-        <h4> location: {{profile.location}} </h4>
+        <div style="text-align: left;">
+            <h4> Username : @{{profile.user.username}}</h4>
+            <h4>  Bio : {{profile.bio}}</h4>
+            <h4> location: {{profile.location}} </h4>
+           
+        </div>
         <h2>Items Posted</h2>
         <hr>
         {%if products == None%}
@@ -57,7 +60,7 @@
         {%else%}
         {%for product in products%}  
         <p>
-        <img src="{{product.image.url}}" alt="" style="float:left;" hspace="20" height="130cm"  >
+        <img src="{{product.image.url}}" alt=""  style="float:left; margin-left: auto; margin-right: auto;  " hspace="20" height="170cm" width="170"  >
         <h3> <a href="">{{product.name}}</a></h3>
         <small>price {{product.price}}GH¢</small>
         <br>

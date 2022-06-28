@@ -1,13 +1,11 @@
 from email import message
-from multiprocessing import context
-from tkinter import ON
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
-from .models import Profile,Product,Comment
-from .forms import ProductForm
+from .models import Profile,Product,Comment,ContactInfo
+from .forms import ContactInfoForm, ProductForm
 from django.db.models import Q
 from .no_repititions import Onlyone
 # Create your views here
@@ -17,14 +15,14 @@ def home(request):
     q = request.GET.get('q')
     if q is None:
         product = Product.objects.all()
-        
     else:
         product = Product.objects.filter(Q(name__icontains =q)|
         Q(type_of__icontains=q)|
         Q(brand__icontains = q)|
         Q(by__user__username__icontains =q)) or None
-        
-    context = { 'product' : product ,'obj':'obj',}
+    profile = Profile.objects.get(user = request.user)
+
+    context = { 'product' : product ,'obj':'obj', 'profile': profile}
     return render(request,'trading/index.html',context)
 
 def loginPage(request):
@@ -112,8 +110,15 @@ def postProduct(request):
     return render(request,'trading/new_product.html',{'form':form})
 
 def profile_page(request,pk):
+    q = request.GET.get('q')
     profile = Profile.objects.get(pk=pk)
-    product = Product.objects.filter(by = profile)
+    if q is None:
+        product = Product.objects.filter(by = profile)
+    else:
+        product= Product.objects.filter(Q(by = profile) & 
+        Q(name__icontains =q)|
+        Q(brand__icontains =q)|
+        Q(type_of__icontains =q))
     type_of  = product.values('type_of')
     brands = list(product.values('brand'))
     brands = Onlyone(brands ,'brand').no_repeat()
@@ -135,6 +140,17 @@ def checkProduct(request,pk):
         return redirect('product-page',pk=product.id)
         # new_comment.save()
     return render(request,'trading/product_page.html', context )
-
-def add_to_cart():
-    pass
+@login_required(login_url = 'login')
+def edit_contactInfo(request):
+    user = request.user
+    if request.user!= user:
+        return redirect('home')
+    profile = Profile.objects.get(user=user)
+    contact = ContactInfo.objects.filter(profile=profile).first() or None
+    if contact != None :
+        form = ContactInfoForm(initial ={'profile':profile}, instance = contact)
+    else:
+        form = ContactInfoForm(initial={'profile':profile})
+    if request.method  == 'POST':
+        pass
+    return render(request,'trading/contactInfo.html', {'form': form} )
