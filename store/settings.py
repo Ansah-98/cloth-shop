@@ -39,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'trading',
     'paypal.standard.ipn',
-    'paystack',
-    'tutorial'
+    'paystack'
+    
+    
 ]
 
 MIDDLEWARE = [
@@ -116,6 +117,7 @@ USE_I18N = True
 USE_TZ = True
 
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
@@ -132,3 +134,7 @@ MEDIA_ROOT =  BASE_DIR/'static/images'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 PAYSTACK_PUBLIC_KEY = config('paystack_public_key')
 PAYSTACK_SECRET_KEY = config('paystack_secret_keys')
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': "rest_framework.schemas.coreapi.AutoSchema"
+}

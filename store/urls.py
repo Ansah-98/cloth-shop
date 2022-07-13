@@ -20,6 +20,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('',include('trading.urls')),
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls,
+    path('paystack',include('paystack.urls'))),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
