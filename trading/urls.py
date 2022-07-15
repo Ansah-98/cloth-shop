@@ -11,5 +11,6 @@ urlpatterns =[
     path('checkup/<str:pk>',views.profile_page,name ='profile-page'),
     path('product-page/<str:pk>',views.checkProduct,name = 'product-page'),
     path('contact-form',views.edit_contactInfo, name='contact-form'),
-    path('pay/<str:pk>',views.pay, name ='payment')
+    path('pay/<str:pk>',views.pay, name ='payment'),
+    path('verify/',views.verify,name='verify')
 ]

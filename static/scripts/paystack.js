@@ -15,6 +15,7 @@ function payWithPaystack(e) {
       alert('Window closed.');
     },
       callback: function(response){
+    window.location = 'http://127.0.0.1:8000/verify/?q='+response.reference;
     let message = 'Payment complete! Reference: ' + response.reference;
       alert(message);
     }

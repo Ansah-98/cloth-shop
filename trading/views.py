@@ -9,7 +9,8 @@ from .forms import ContactInfoForm, ProductForm
 from django.db.models import Q
 from .no_repititions import Onlyone
 # Create your views here
-
+import requests
+from decouple import config
 
 
 @login_required(login_url ='login')
@@ -162,3 +163,13 @@ def pay(request,pk):
     product = Product.objects.get(id = pk)
     context = {'product':product}
     return render(request,'trading/payment.html',context)
+
+
+def verify(request):
+    q = request.GET.get('q')
+    endpoint  = "https://api.paystack.co/transaction/verify/:{q}"
+    headers ={'Authorization': f"Bearer {config('paystack_secret_keys')}" }
+    print(headers['Authorization'])
+    response = requests.get(endpoint, headers = headers)
+    print(response.json())
+    return redirect('home')
