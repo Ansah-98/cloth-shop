@@ -10,6 +10,9 @@ from django.db.models import Q
 from .no_repititions import Onlyone
 # Create your views here
 
+
+
+@login_required(login_url ='login')
 def home(request):
 
     q = request.GET.get('q')
@@ -154,3 +157,8 @@ def edit_contactInfo(request):
     if request.method  == 'POST':
         pass
     return render(request,'trading/contactInfo.html', {'form': form} )
+
+def pay(request,pk):
+    product = Product.objects.get(id = pk)
+    context = {'product':product}
+    return render(request,'trading/payment.html',context)
