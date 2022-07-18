@@ -168,8 +168,7 @@ def pay(request,pk):
 def verify(request):
     q = request.GET.get('q')
     endpoint  = "https://api.paystack.co/transaction/verify/:{q}"
-    headers ={'Authorization': f"Bearer {config('paystack_secret_keys')}" }
-    print(headers['Authorization'])
+    headers ={'Authorization': f"Bearer {config('paystack_secret_keys')}"}
     response = requests.get(endpoint, headers = headers)
     print(response.json())
     return redirect('home')
