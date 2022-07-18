@@ -39,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'trading',
     'paypal.standard.ipn',
-    'paystack'
-    
-    
+    'paystack',
+    'rest_framework',
+    'api'
 ]
 
 MIDDLEWARE = [
